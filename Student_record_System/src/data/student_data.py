@@ -2,9 +2,41 @@
 Student Data  Module
 Manages Student Data storage (in-memory for now).
 """
+import json
+import os
 
-#in memory storage
-students =[]
+
+FILE_PATH = os.path.join(os.path.dirname(__file__), 'Student.json')
+
+# In memory student storage
+students = []
+
+def load_students(filepath=FILE_PATH):
+    """
+    Load student records from a JSON file.
+    """
+    global students
+    try:
+        if os.path.exists(filepath):
+            with open(filepath, 'r') as file:
+                students = json.load(file)
+    except (json.JSONDecodeError, IOError) as e:
+        print(f"Error loading students from file: {e}")
+        students = []
+
+def save_students(filepath=FILE_PATH, students_data=None):
+    """
+    Save student records to a JSON file.
+    """
+    if students_data is None:
+        students_data = students
+    
+    try:
+        with open(filepath, 'w') as file:
+            json.dump(students_data, file, indent=4)    
+    except (IOError, json.JSONDecodeError) as e:
+        print(f"Error saving students to file: {e}")
+
 
 def add_student(student):
     """

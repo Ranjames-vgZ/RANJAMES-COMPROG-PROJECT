@@ -54,10 +54,10 @@ def generate_student_id(start_year, semester, number):
         year_part = f"{year1:02d}{year2:02d}"
 
         # Format semester as 2 digits 
-        semester_part = str(semester).zfills(2)
+        semester_part = str(semester).zfill(2)
 
         #fromat semester as 4 digits
-        number_part = str(semester).zfills(4)
+        number_part = str(number).zfill(4)
 
         return f"{year_part}-{semester_part}-{number_part}"
     

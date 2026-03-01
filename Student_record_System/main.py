@@ -75,6 +75,7 @@ def add_student_menu():
     #Add to Database
     if student_data.add_student(student):
         print(f"\nStudent {name} added Successfully")
+        student_data.save_students()
     else:
         print("\nFailed to add student!")
     
@@ -180,6 +181,7 @@ def update_student_menu():
     
     if student_data.update_student (student_id, updated_data): 
         print("\nStudent updated successfully!") 
+        student_data.save_students()
     else: print("\nFailed to update student!") 
     
     helpers.pause()
@@ -206,7 +208,8 @@ def delete_student_menu():
     
     if confirm == "yes": 
         if student_data.delete_student(student_id): 
-            print("\nStudent deleted successfully!") 
+            print("\nStudent deleted successfully!")
+            student_data.save_students()
         else: 
             print("\nFailed to delete student!") 
     else: 
@@ -220,6 +223,9 @@ def main():
     print("Welcome to Student Record Management System") 
     print("Version 1.0 Part 1: Modular Programming") 
     print("-"*60)
+
+    student_data.load_students()
+
     helpers.pause() 
     
     while True:
@@ -237,7 +243,7 @@ def main():
          elif choice == "5": 
             delete_student_menu() 
          elif choice == "6": 
-            print("\nThank you for using Student Record Management System!") 
+            print("\nThank you for using Student Record Management System! GOODBYE!") 
             break 
          else:
              print("\nInvalid choice!") 
