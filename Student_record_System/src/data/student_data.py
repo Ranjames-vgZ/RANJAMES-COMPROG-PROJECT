@@ -6,7 +6,7 @@ import json
 import os
 
 
-FILE_PATH = os.path.join(os.path.dirname(__file__), 'Student.json')
+FILE_PATH = os.path.join(os.path.dirname(__file__), 'Student.JSON')
 
 # In memory student storage
 students = []
