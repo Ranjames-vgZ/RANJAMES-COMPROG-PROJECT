@@ -60,7 +60,7 @@ def find_student_by_id(student_id):
     Find student b ID,
 
     Args:
-        student_id(str): Student ID to serarch
+        student_id(str): Student ID to search
 
     Returns:
         dict or None: Student dictionary if found, None Otherwise

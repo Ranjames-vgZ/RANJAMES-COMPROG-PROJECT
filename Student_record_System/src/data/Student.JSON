@@ -1,0 +1,23 @@
+[
+    {
+        "id": "2526-01-0001",
+        "name": "Rj",
+        "age": 27,
+        "email": "rj@gmal.com",
+        "grades": []
+    },
+    {
+        "id": "2526-01-0002",
+        "name": "Vhenx",
+        "age": 23,
+        "email": "vhenx@gmail.com",
+        "grades": []
+    },
+    {
+        "id": "2526-01-0003",
+        "name": "Jehu",
+        "age": 24,
+        "email": "jehu@gmail.com",
+        "grades": []
+    }
+]

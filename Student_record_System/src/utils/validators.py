@@ -10,7 +10,7 @@ def validate_student_id(student_id):
     Args:
         student_id(str): Student ID to validate 
     
-    ReturnS:
+    Returns:
         bool: True if valid, False otherwise
         
     Example:
@@ -111,3 +111,4 @@ def validate_email(email):
         return False
 
     return True 
+

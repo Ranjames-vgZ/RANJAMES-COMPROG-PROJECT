@@ -21,8 +21,8 @@ def format_student_record(student):
     grades = student.get('grades', [])
     if grades:
         output += f"Grades: {','.join(map(str, grades))}\n"
-        weighed_avg = (grades[0] * 0.20 + grades[1] * 0.20 + grades[2] * 0.20 + grades[3] * 0.40)
-        output += f"Average:{weighed_avg:.2f}\n"
+        weighted_avg = (grades[0] * 0.20 + grades[1] * 0.20 + grades[2] * 0.20 + grades[3] * 0.40)
+        output += f"Average:{weighted_avg:.2f}\n"
     else:
         output += "No grades Recorded\n"
 

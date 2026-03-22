@@ -2,6 +2,7 @@
 Student Record Management System
 Main Program  
 
+
 Author(s): [Ranjames P. Anuario] 
 Date: [02/02/2026] 
 Version: 1.0 Part - 1 
@@ -106,13 +107,14 @@ def search_student():
         print("-"*60) 
         
         student_id = input("Enter Student ID: ").strip() 
+            
         
         student = student_data.find_student_by_id(student_id) 
         
         if student:
             print (formatters.format_student_record(student)) 
         else: 
-            print(f"Student ID (student_id) not found!")
+            print(f"Student ID {student_id} not found!")
         
         helpers.pause()
 

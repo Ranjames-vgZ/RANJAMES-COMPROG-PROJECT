@@ -1,6 +1,6 @@
 """
 Helpers Module
-Provides helper function for commmon task.
+Provides helper function for common task.
 """
 
 def get_valid_input(prompt, validation_func, error_msg = "Invalid input!"):
@@ -23,7 +23,7 @@ def get_valid_input(prompt, validation_func, error_msg = "Invalid input!"):
 
 def pause():
         """Pause and wait for user to press Enter"""
-        input("\nPress Enter to cotinue...")
+        input("\nPress Enter to continue...")
 
 def clear_screen():
         """Clear the console screen"""
@@ -34,7 +34,7 @@ def generate_student_id(start_year, semester, number):
         """
         Generate student ID in Format YYYY-SS-NNNN.
 
-        Agrs:
+        Args:
             start_year(int): Starting year of academic year (e.g., 2025 for 2025-2026)
             semester (int): Semester number (e.g., 1 for first semeter)
             number(int): Student enrollee nbumber
