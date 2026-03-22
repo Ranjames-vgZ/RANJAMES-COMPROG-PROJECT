@@ -105,9 +105,12 @@ def search_student():
         print("\n" +""*60) 
         print("SEARCH STUDENT") 
         print("-"*60) 
-        
-        student_id = input("Enter Student ID: ").strip() 
-            
+
+        student_id = helpers.get_valid_input(
+        "Enter Student ID: ",
+        validators.validate_student_id,
+        "Invalid ID format! Use YYYY-SS-NNNN"
+        )  
         
         student = student_data.find_student_by_id(student_id) 
         
@@ -124,8 +127,12 @@ def update_student_menu():
     print("UPDATE STUDENT") 
     print("-"*60) 
     
-    student_id= input("Enter Student ID: ").strip() 
-    
+    student_id = helpers.get_valid_input(
+    "Enter Student ID: ",
+    validators.validate_student_id,
+    "Invalid ID format! Use YYYY-SS-NNNN"
+    )
+        
     student = student_data.find_student_by_id(student_id) 
     
     if not student: 
@@ -194,7 +201,11 @@ def delete_student_menu():
     print("DELETE STUDENT") 
     print("-"*60) 
     
-    student_id = input("Enter Student ID: ").strip() 
+    student_id = helpers.get_valid_input(
+        "Enter Student ID: ",
+        validators.validate_student_id,
+        "Invalid ID format! Use YYYY-SS-NNNN"
+        )  
 
     student = student_data.find_student_by_id(student_id) 
     

@@ -5,7 +5,7 @@ Provides validation function for  student data
 
 def validate_student_id(student_id):
     """
-    Validate student ID format: YYY-SS_NNNN
+    Validate student ID format: YYY-SS0-NNNN
     
     Args:
         student_id(str): Student ID to validate 

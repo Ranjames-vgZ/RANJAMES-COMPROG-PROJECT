@@ -43,7 +43,8 @@ def generate_student_id(start_year, semester, number):
             str: Formatted student ID
 
         Example:
-            >>>>generate_student_id(2025, 1 1234)
+            >>>>generate_student_id(2025, 1,
+              1234)
             '2526-02-1234'
             >>>>generate_student_id(2024, 2, 5)
             '2425-02-0005'  
