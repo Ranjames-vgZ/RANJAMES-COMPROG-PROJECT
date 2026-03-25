@@ -8,23 +8,25 @@ Date: [02/02/2026]
 Version: 1.0 Part - 1 
 """
 
-from src.utils import formatters, validators, helpers
-from src.data import student_data
+from src.models.student import Student
+from src.data.student_manager import StudentManager
+from src.utils import helpers, validators, formatters
 
-def display_menu(): 
+
+def display_menu():
     """Display main menu."""
-    print("\n" + "="*60) 
-    print("STUDENT RECORD MANAGEMENT SYSTEM") 
-    print("-"*60) 
-    print("1. Add Student") 
-    print("2. View All Students") 
-    print("3. Search Student") 
-    print("4. Update Student") 
-    print("5. Delete Student") 
-    print("6. Exit") 
+    print("\n" + "="*60)
+    print("STUDENT RECORD MANAGEMENT SYSTEM")
+    print("-"*60)
+    print("1. Add Student")
+    print("2. View All Students")
+    print("3. Search Student")
+    print("4. Update Student")
+    print("5. Delete Student")
+    print("6. Exit")
     print("-"*60)
 
-def add_student_menu():
+def add_student_menu(manager: StudentManager):
     """Add new student"""
     print ("\n" + "="*60)
     print("ADD NEW STUDENT")
@@ -38,7 +40,7 @@ def add_student_menu():
     )
 
     #Checks if Id Exists
-    if  student_data.find_student_by_id(student_id):
+    if manager.find_by_id(student_id):
         print(f"Student ID{student_id} Already Exist!")
         helpers.pause()
         return
@@ -65,44 +67,36 @@ def add_student_menu():
     ).lower() 
     
     #Create student record 
-    student = { 
-        'id': student_id, 
-        'name': name, 
-        'age': age, 
-        'email': email, 
-        'grades': [] 
-        }
-    
+    student = Student(student_id, name, age, email, grades=[])
     #Add to Database
-    if student_data.add_student(student):
+    if manager.add_student(student):
         print(f"\nStudent {name} added Successfully")
-        student_data.save_students()
+        manager.save_students()
     else:
         print("\nFailed to add student!")
     
     helpers.pause()
 
-def view_all_students(): 
+def view_all_students(manager): 
         """Display all students.""" 
         print("\n" + "="*60) 
         print("ALL STUDENTS") 
         print("-"*60) 
         
-        students = student_data.get_all_students()
+        students = manager.get_all()
         
         if not students: 
             print("No students in the system.") 
         else: 
             print(formatters.format_table_header(), end="")
-            for student in students:
-                print(formatters.format_table_row(student), end="") 
-            print(f"\nTotal Students: {len(students)}") 
+            for student in students:    
+               print(formatters.format_table_row(student), end="") 
             
         helpers.pause()
         
-def search_student():
+def search_student(manager):
         """Search for a student by ID."""
-        print("\n" +""*60) 
+        print("\n" +"="*60) 
         print("SEARCH STUDENT") 
         print("-"*60) 
 
@@ -112,16 +106,16 @@ def search_student():
         "Invalid ID format! Use YYYY-SS-NNNN"
         )  
         
-        student = student_data.find_student_by_id(student_id) 
+        student = manager.find_by_id(student_id) 
         
         if student:
-            print (formatters.format_student_record(student)) 
+            print(formatters.format_student_record(student))  
         else: 
             print(f"Student ID {student_id} not found!")
         
         helpers.pause()
 
-def update_student_menu(): 
+def update_student_menu(manager): 
     """Update student information.""" 
     print("\n" + "="*60) 
     print("UPDATE STUDENT") 
@@ -133,7 +127,7 @@ def update_student_menu():
     "Invalid ID format! Use YYYY-SS-NNNN"
     )
         
-    student = student_data.find_student_by_id(student_id) 
+    student = manager.find_by_id(student_id) 
     
     if not student: 
         print (f"Student ID {student_id} not found!") 
@@ -141,7 +135,7 @@ def update_student_menu():
         return 
     
     print(f"\nCurrent information:") 
-    print (formatters.format_student_record(student)) 
+    print(formatters.format_student_record(student)) 
    
     print("\nwhat would you like to update?") 
     print("1. Name") 
@@ -167,7 +161,6 @@ def update_student_menu():
             validators.validate_age, 
             "Invalid age!"
             ))
-        
         updated_data['age'] = age 
 
     elif choice == "3": 
@@ -188,14 +181,14 @@ def update_student_menu():
         helpers.pause() 
         return 
     
-    if student_data.update_student (student_id, updated_data): 
+    if manager.update_student (student_id, updated_data): 
         print("\nStudent updated successfully!") 
-        student_data.save_students()
+        manager.save_students()
     else: print("\nFailed to update student!") 
     
     helpers.pause()
 
-def delete_student_menu(): 
+def delete_student_menu(manager): 
     """Delete a student.""" 
     print("\n" + "="*60) 
     print("DELETE STUDENT") 
@@ -207,60 +200,61 @@ def delete_student_menu():
         "Invalid ID format! Use YYYY-SS-NNNN"
         )  
 
-    student = student_data.find_student_by_id(student_id) 
-    
+    student = manager.find_by_id(student_id) 
     if not student: 
         print (f"Student ID {student_id} not found!") 
         helpers.pause() 
         return 
     
     print(f"\nStudent to delete:") 
-    print (formatters.format_student_record(student)) 
+    print(formatters.format_student_record(student))
 
     confirm = input("Confirm deletion? (yes/no): ").strip().lower() 
     
     if confirm == "yes": 
-        if student_data.delete_student(student_id): 
+        if manager.delete_student(student_id): 
             print("\nStudent deleted successfully!")
-            student_data.save_students()
+            manager.save_students()
         else: 
             print("\nFailed to delete student!") 
     else: 
         print("Deletion cancelled.") 
         
         helpers.pause()
-
-def main(): 
+   
+def main():
     """Main program loop."""
-    print("\n" + "="*60) 
-    print("Welcome to Student Record Management System") 
-    print("Version 1.0 Part 1: Modular Programming") 
+    print("\n" + "="*60)
+    print("Welcome to Student Record Management System")
+    print("Version 1.0 Part 1: Refactored with OOP")
     print("-"*60)
 
-    student_data.load_students()
+    manager = StudentManager()
+    manager.load_students()
 
-    helpers.pause() 
-    
+    helpers.pause()
+
     while True:
-         display_menu() 
-         choice = input("Enter choice (1-6): ").strip() 
-         
-         if choice == "1":
-             add_student_menu() 
-         elif choice == "2":
-             view_all_students() 
-         elif choice == "3": 
-             search_student() 
-         elif choice == "4": 
-            update_student_menu() 
-         elif choice == "5": 
-            delete_student_menu() 
-         elif choice == "6": 
-            print("\nThank you for using Student Record Management System! GOODBYE!") 
-            break 
-         else:
-             print("\nInvalid choice!") 
-             helpers.pause() 
-             
+        display_menu()
+        choice = input("Enter choice (1-6): ").strip()
+
+        if choice == "1":
+            add_student_menu(manager)
+        elif choice == "2":
+            view_all_students(manager)
+        elif choice == "3":
+            search_student(manager)
+        elif choice == "4":
+            update_student_menu(manager)
+        elif choice == "5":
+            delete_student_menu(manager)
+        elif choice == "6":
+            print("\nThank you for using Student Record Management System! GOODBYE!")
+            break
+        else:
+            print("\nInvalid choice!")
+            helpers.pause()
+
 if __name__ == "__main__":
- main()
+    main()
+
