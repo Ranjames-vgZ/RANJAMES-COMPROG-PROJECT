@@ -6,7 +6,7 @@ import json
 import os
 
 
-FILE_PATH = os.path.join(os.path.dirname(__file__), 'Student.JSON')
+FILE_PATH = os.path.join(os.path.dirname(__file__), 'Student.json')
 
 # In memory student storage
 students = []
@@ -60,7 +60,7 @@ def find_student_by_id(student_id):
     Find student b ID,
 
     Args:
-        student_id(str): Student ID to search
+        student_id(str): Student ID to serarch
 
     Returns:
         dict or None: Student dictionary if found, None Otherwise
