@@ -19,7 +19,7 @@ class MainWindow(ctk.CTk):
             font=("Times New Roman", 28),
             text_color="white"
         )
-
+        #Header and types
         self.header.grid(
             row=0,
             column=0,
@@ -61,7 +61,7 @@ class MainWindow(ctk.CTk):
             pady=(10, 0)
         )
 
-        # ===== ENTRIES =====
+        #  ENTRIES 
         self.id_entry = ctk.CTkEntry(
             self,
             width=180,
@@ -101,7 +101,7 @@ class MainWindow(ctk.CTk):
             pady=5
         )
 
-       
+        #Buttons
         add = ctk.CTkButton(
             self,
             text="Add Student",
@@ -152,7 +152,7 @@ class MainWindow(ctk.CTk):
             padx=5,
             pady=15
         )
-
+        #Textbox
         self.output = ctk.CTkTextbox(
             self,
             width=650,
