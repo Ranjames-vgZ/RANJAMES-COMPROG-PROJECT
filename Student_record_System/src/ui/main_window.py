@@ -8,32 +8,165 @@ class MainWindow(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+
         self.title("Student Record System")
-        self.geometry("750x550")
-        self.configure(fg_color="Black")
+        self.geometry("700x500")
 
         self.manager = StudentManager()
+        self.header = ctk.CTkLabel(
+            self,
+            text="Welcome to Student Record System",
+            font=("Times New Roman", 28),
+            text_color="white"
+        )
 
-        self.id_entry = ctk.CTkEntry(self, placeholder_text="Student ID")
-        self.id_entry.pack(pady=5)
+        self.header.grid(
+            row=0,
+            column=0,
+            columnspan=3,
+            pady=20
+        )
 
-        self.name_entry = ctk.CTkEntry(self, placeholder_text="Name")
-        self.name_entry.pack(pady=5)
+        
+        student_id = ctk.CTkLabel(
+            self,
+            text="Student ID"
+        )
+        student_id.grid(
+            row=1,
+            column=0,
+            padx=5,
+            pady=(10, 0)
+        )
 
-        self.age_entry = ctk.CTkEntry(self, placeholder_text="Age")
-        self.age_entry.pack(pady=5)
+        name = ctk.CTkLabel(
+            self,
+            text="Name"
+        )
+        name.grid(
+            row=1,
+            column=1,
+            padx=5,
+            pady=(10, 0)
+        )
 
+        age = ctk.CTkLabel(
+            self,
+            text="Age"
+        )
+        age.grid(
+            row=1,
+            column=2,
+            padx=5,
+            pady=(10, 0)
+        )
 
-        ctk.CTkButton(self, text="Add Student", command=self.add_student).pack(pady=5)
-        ctk.CTkButton(self, text="View Students", command=self.view_students).pack(pady=5)
-        ctk.CTkButton(self, text="Search Student", command=self.search_student).pack(pady=5)
-        ctk.CTkButton(self, text="Delete Student", command=self.delete_student).pack(pady=5)
+        # ===== ENTRIES =====
+        self.id_entry = ctk.CTkEntry(
+            self,
+            width=180,
+            placeholder_text="Enter ID"
+        )
 
-        # OUTPUT BOX
-        self.output = ctk.CTkTextbox(self, width=650, height=250)
-        self.output.pack(pady=10)
+        self.id_entry.grid(
+            row=2,
+            column=0,
+            padx=5,
+            pady=5
+        )
 
+        self.name_entry = ctk.CTkEntry(
+            self,
+            width=180,
+            placeholder_text="Enter Name"
+        )
 
+        self.name_entry.grid(
+            row=2,
+            column=1,
+            padx=5,
+            pady=5
+        )
+
+        self.age_entry = ctk.CTkEntry(
+            self,
+            width=180,
+            placeholder_text="Enter Age"
+        )
+
+        self.age_entry.grid(
+            row=2,
+            column=2,
+            padx=5,
+            pady=5
+        )
+
+       
+        add = ctk.CTkButton(
+            self,
+            text="Add Student",
+            command=self.add_student,
+            width=150
+        )
+        add.grid(
+            row=3,
+            column=0,
+            padx=5,
+            pady=15
+        )
+
+        view = ctk.CTkButton(
+            self,
+            text="View Students",
+            command=self.view_students,
+            width=150
+        )
+        view.grid(
+            row=3,
+            column=1,
+            padx=5,
+            pady=15
+        )
+
+        Search = ctk.CTkButton(
+            self,
+            text="Search Student",
+            command=self.search_student,
+            width=150
+        )
+        Search.grid(
+            row=3,
+            column=2,
+            padx=5,
+            pady=15
+        )
+        delete = ctk.CTkButton(
+            self,
+            text="delete a student",
+            command=self.delete_student,
+            width=150
+        )
+        delete.grid(
+            row=4,
+            column=1,
+            padx=5,
+            pady=15
+        )
+
+        self.output = ctk.CTkTextbox(
+            self,
+            width=650,
+            height=200,
+            state = "disabled"
+        )
+
+        self.output.grid(
+            row=5,
+            column=0,
+            columnspan=3,
+            padx=10,
+            pady=10
+        )
     def add_student(self):
         student_id = self.id_entry.get().strip()
         name = self.name_entry.get().strip()
@@ -61,6 +194,7 @@ class MainWindow(ctk.CTk):
 
     def view_students(self):
         students = self.manager.get_all()
+        self.output.configure(state="normal")
         self.output.delete("1.0", "end")
 
         for s in students:
@@ -83,5 +217,7 @@ class MainWindow(ctk.CTk):
             self.show("Not found")
 
     def show(self, message):
+        self.output.configure(state="normal")
         self.output.delete("1.0", "end")
         self.output.insert("end", message)
+        self.output.configure(state="disabled")
