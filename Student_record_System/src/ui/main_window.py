@@ -128,13 +128,13 @@ class MainWindow(ctk.CTk):
             pady=15
         )
 
-        Search = ctk.CTkButton(
+        Search_students = ctk.CTkButton(
             self,
             text="Search Student",
             command=self.search_student,
             width=150
         )
-        Search.grid(
+        Search_students.grid(
             row=3,
             column=2,
             padx=5,
