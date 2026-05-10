@@ -1,3 +1,8 @@
+"""
+Docstring for src.ui.main_window
+Its the uI design for the program
+"""
+
 import customtkinter as ctk
 from src.data.student_manager import StudentManager
 from src.models.student import Student
@@ -27,7 +32,6 @@ class MainWindow(ctk.CTk):
             pady=20
         )
 
-        
         student_id = ctk.CTkLabel(
             self,
             text="Student ID"
@@ -115,13 +119,13 @@ class MainWindow(ctk.CTk):
             pady=15
         )
 
-        view = ctk.CTkButton(
+        view_students = ctk.CTkButton(
             self,
             text="View Students",
             command=self.view_students,
             width=150
         )
-        view.grid(
+        view_students.grid(
             row=3,
             column=1,
             padx=5,
@@ -140,13 +144,13 @@ class MainWindow(ctk.CTk):
             padx=5,
             pady=15
         )
-        delete = ctk.CTkButton(
+        delete_student = ctk.CTkButton(
             self,
             text="delete a student",
             command=self.delete_student,
             width=150
         )
-        delete.grid(
+        delete_student.grid(
             row=4,
             column=1,
             padx=5,
